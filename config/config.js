@@ -19,7 +19,7 @@ Config.whitelist = [
 // address bar is `Config.routes.client`.
 Config.defaultserver = {
 	id: 'dragonheaven',
-	host: 'dragonheavenserver.herokuapp.com',
+	host: 'localhost:8000',
 	port: 443,
 	httpport: 8000,
 	altport: 80,
