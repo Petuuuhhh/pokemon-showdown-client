@@ -1209,7 +1209,7 @@ process.stdout.write("Building `data/teambuilder-tables.js`... ");
 				}
 			}
 			let itemTable = BattleTeambuilderTable.items;
-			if (modGen) itemTable = BattleTeambuilderTable[modGen].items;
+			if (modGen) itemTable = BattleTeambuilderTable['gen' + modGen].items;
 			items.push(...itemTable.slice(1));
 			//moves
 			const overrideMoveInfo = {};
