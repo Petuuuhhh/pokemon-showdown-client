@@ -35,7 +35,7 @@ const ModConfigData = {
 			excludeStandardTiers: true,
 		},
 		random: {
-			customTiers: ['Rand Sus', 'Rand', 'CS2'],
+			customTiers: ['Rand Sus', 'Rand'],
 			excludeStandardTiers: true,
 		},
 	},
