@@ -19,7 +19,7 @@ Config.whitelist = [
 // address bar is `Config.routes.client`.
 Config.defaultserver = {
 	id: 'dragonheaven',
-	host: 'localhost:8000',
+	host: 'randommons-server.herokuapp.com',
 	port: 443,
 	httpport: 8000,
 	altport: 80,
@@ -33,7 +33,7 @@ Config.customcolors = {
 	'zarel': 'aeo'
 };
 /*** Begin automatically generated configuration ***/
-Config.version = "0.11.2 (11f03e41/55fadf43)";
+Config.version = "0.11.2 (3621d814/55fadf43)";
 
 Config.routes = {
 	root: 'dragonheavenserver.herokuapp.com',
