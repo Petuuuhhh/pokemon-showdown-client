@@ -34,6 +34,10 @@ const ModConfigData = {
 		smashmodsmelee: {
 			excludeStandardTiers: true,
 		},
+		random: {
+			customTiers: ['Rand Sus', 'Rand'],
+			excludeStandardTiers: true,
+		},
 	},
 };
 exports.ModConfigData = ModConfigData;
