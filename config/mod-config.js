@@ -38,6 +38,10 @@ const ModConfigData = {
 			customTiers: ['Rand Sus', 'Rand'],
 			excludeStandardTiers: true,
 		},
+		randomduo: {
+			customTiers: ['Rand Duo'],
+			excludeStandardTiers: true,
+		},
 	},
 };
 exports.ModConfigData = ModConfigData;
