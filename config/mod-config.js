@@ -39,7 +39,7 @@ const ModConfigData = {
 			excludeStandardTiers: true,
 		},
 		randomduo: {
-			customTiers: ['Rand Duo'],
+			customTiers: ['Rand Duo Uber', 'Rand Duo'],
 			excludeStandardTiers: true,
 		},
 	},
