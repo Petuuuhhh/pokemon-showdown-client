@@ -42,6 +42,10 @@ const ModConfigData = {
 			customTiers: ['Rand Duo Uber', 'Rand Duo'],
 			excludeStandardTiers: true,
 		},
+		randommossy: {
+			customTiers: ['Rand Mossy Uber', 'Rand Mossy'],
+			excludeStandardTiers: true,
+		},
 	},
 };
 exports.ModConfigData = ModConfigData;
