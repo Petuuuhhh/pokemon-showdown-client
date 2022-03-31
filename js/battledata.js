@@ -381,14 +381,14 @@ break;
 }
 if(!window.BattlePokedex)window.BattlePokedex={};
 var data=window.BattlePokedex[id];
-if(!data&&!modded){
-if(window.room&&window.room.curTeam&&window.room.curTeam.mod&&this.moddedDexes[window.room.curTeam.mod]){
-console.log("using modded dex data: "+id);
-return this.moddedDexes[window.room.curTeam.mod].getSpecies(id,false,"from Dex: getSpecies");
-}else{
-console.log("couldn't find mod: "+id);
-}
-}
+
+
+
+
+
+
+
+
 
 var species;
 if(data&&typeof data.exists==='boolean'){
