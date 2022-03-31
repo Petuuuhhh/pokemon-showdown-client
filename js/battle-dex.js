@@ -382,10 +382,9 @@ break;
 if(!window.BattlePokedex)window.BattlePokedex={};
 var data=window.BattlePokedex[id];
 if(!data){
-if(window.room&&window.room.curTeam&&window.room.curTeam.mod)data=this.moddedDexes[window.curTeam.mod].getSpecies();else
+if(window.room&&window.room.curTeam&&window.room.curTeam.mod)return this.moddedDexes[window.curTeam.mod].getSpecies();else
 console.log("couldn't find mod");
 }
-
 
 var species;
 if(data&&typeof data.exists==='boolean'){

@@ -382,7 +382,7 @@ var prevSection=this.curLineSection;
 var curSection=this.lineSection(args,kwArgs);
 if(!curSection)return false;
 this.curLineSection=curSection;
-console.log("curSection = "+curSection);
+if(curSection)console.log("curSection = "+curSection);
 switch(curSection){
 case'break':
 if(prevSection!=='break')return true;
