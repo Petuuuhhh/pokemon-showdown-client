@@ -748,6 +748,7 @@ getTeambuilderSpriteData=function getTeambuilderSpriteData(pokemon){var gen=argu
 console.log("getTeambuilderSpriteData");
 console.log(pokemon);
 var id=toID(pokemon.species);
+Dex.getSpecies(id);
 var spriteid=pokemon.spriteid;
 var species=window.BattlePokedexAltForms&&window.BattlePokedexAltFormsBattlePokedexAltForms[id]?window.BattlePokedexAltFormsBattlePokedexAltForms[id]:Dex.getSpecies(pokemon.species);
 console.log(species);
