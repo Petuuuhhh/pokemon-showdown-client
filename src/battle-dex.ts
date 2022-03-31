@@ -382,7 +382,7 @@ const Dex = new class implements ModdedDex {
 		if (!window.BattlePokedex) window.BattlePokedex = {};
 		let data = window.BattlePokedex[id];
 		if (!data) {
-			if (window.room.curTeam.mod) data = this.moddedDexes[window.curTeam.mod].getSpecies();
+			if (window.room.curTeam && window.room.curTeam.mod) data = this.moddedDexes[window.curTeam.mod].getSpecies();
 			else console.log("couldn't find mod");
 		}
 		
