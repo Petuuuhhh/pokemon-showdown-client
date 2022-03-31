@@ -1165,14 +1165,15 @@ Storage.importTeam = function (buffer, teams) {
 			var parenIndex = line.lastIndexOf(' (');
 			if (line.substr(line.length - 1) === ')' && parenIndex !== -1) {
 				line = line.substr(0, line.length - 1);
-				var thisDex = Dex.getSpecies(line.substr(parenIndex + 2)).exists ? Dex : null;
-				if (!thisDex) {
-					for (var modid in (ClientMods)) {
-						if (Dex.mod(modid).getSpecies(line.substr(parenIndex + 2)).exists) {
-							thisDex = Dex.mod(modid);
-						}
-					}
-				}
+				var thisDex = Dex;
+				// var thisDex = Dex.getSpecies(line.substr(parenIndex + 2)).exists ? Dex : null;
+				// if (!thisDex) {
+					// for (var modid in (ClientMods)) {
+						// if (Dex.mod(modid).getSpecies(line.substr(parenIndex + 2)).exists) {
+							// thisDex = Dex.mod(modid);
+						// }
+					// }
+				// }
 				console.log('importTeam A');
 				curSet.species = thisDex.getSpecies(line.substr(parenIndex + 2)).name;
 				line = line.substr(0, parenIndex);
