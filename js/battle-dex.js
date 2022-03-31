@@ -385,8 +385,14 @@ if(!data&&!modded){
 if(window.room&&window.room.curTeam&&window.room.curTeam.mod&&this.moddedDexes[window.room.curTeam.mod]){
 console.log("using modded dex data: "+id);
 return this.moddedDexes[window.room.curTeam.mod].getSpecies(id,false,"from Dex: getSpecies");
+}
 }else{
-console.log("couldn't find mod: "+id);
+for(var modid in ClientMods){
+for(var formatid in ClientMods[modid].formats){
+if(this.moddedDexes[modid]&&this.moddedDexes[modid].getSpecies(id,false,"from Dex: getSpecies")){
+return this.moddedDexes[modid].getSpecies(id,false,"from Dex: getSpecies");
+}
+}
 }
 }
 
@@ -421,7 +427,6 @@ break;
 }
 }
 }
-
 return species;
 };_proto2.
 
