@@ -366,6 +366,7 @@ const Dex = new class implements ModdedDex {
 		let name = nameOrSpecies || '';
 		let id = toID(nameOrSpecies);
 		let formid = id;
+		if (debug) console.log("getSpecies (Dex): " + debug + ' ' + id);
 		if (!window.BattlePokedexAltForms) window.BattlePokedexAltForms = {};
 		if (formid in window.BattlePokedexAltForms) return window.[BattlePokedexAltForms[formid]];
 		if (window.BattleAliases && id in BattleAliases) {
@@ -755,7 +756,7 @@ const Dex = new class implements ModdedDex {
 		console.log(pokemon);
 		let id = toID(pokemon.species);
 		let spriteid = pokemon.spriteid;
-		let species = BattlePokedexAltForms[id] ? BattlePokedexAltForms[id] : Dex.getSpecies(pokemon.species);
+		let species = window.BattlePokedexAltFormsBattlePokedexAltForms[id] ? window.BattlePokedexAltFormsBattlePokedexAltForms[id] : Dex.getSpecies(pokemon.species);
 		console.log(species);
 		if (pokemon.species && !spriteid) {
 			spriteid = species.spriteid || toID(pokemon.species);

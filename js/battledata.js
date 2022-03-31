@@ -366,6 +366,7 @@ return nameOrSpecies;
 var name=nameOrSpecies||'';
 var id=toID(nameOrSpecies);
 var formid=id;
+if(debug)console.log("getSpecies (Dex): "+debug+' '+id);
 if(!window.BattlePokedexAltForms)window.BattlePokedexAltForms={};
 if(formid in window.BattlePokedexAltForms)return window[BattlePokedexAltForms[formid]];
 if(window.BattleAliases&&id in BattleAliases){
@@ -755,7 +756,7 @@ console.log("getTeambuilderSpriteData");
 console.log(pokemon);
 var id=toID(pokemon.species);
 var spriteid=pokemon.spriteid;
-var species=BattlePokedexAltForms[id]?BattlePokedexAltForms[id]:Dex.getSpecies(pokemon.species);
+var species=window.BattlePokedexAltFormsBattlePokedexAltForms[id]?window.BattlePokedexAltFormsBattlePokedexAltForms[id]:Dex.getSpecies(pokemon.species);
 console.log(species);
 if(pokemon.species&&!spriteid){
 spriteid=species.spriteid||toID(pokemon.species);
