@@ -1101,7 +1101,8 @@ Storage.importTeam = function (buffer, teams) {
 	} else if (text.length === 1 || (text.length === 2 && !text[1])) {
 		return Storage.unpackTeam(text[0]);
 	}
-	var thisDex = team.mod ? Dex.mod(team.mod) : Dex;
+	const mod = (window.room.curTeam && window.room.curTeam.mod) ? true : false;
+	var thisDex = mod ? Dex.mod(window.room.curTeam.mod) : Dex;
 	for (var i = 0; i < text.length; i++) {
 		var line = $.trim(text[i]);
 		if (line === '' || line === '---') {
@@ -1167,9 +1168,10 @@ Storage.importTeam = function (buffer, teams) {
 				line = line.substr(0, parenIndex);
 				curSet.name = line;
 			} else {
-				console.log('importTeam B ' + line);
 				curSet.species = thisDex.getSpecies(line).name;
 				curSet.name = '';
+				console.log('importTeam B ' + line + " - set:");
+				console.log(curSet);
 			}
 		} else if (line.substr(0, 7) === 'Trait: ') {
 			line = line.substr(7);

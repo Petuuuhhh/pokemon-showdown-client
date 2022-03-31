@@ -1648,6 +1648,7 @@
 			$li.find('input, button').prop('disabled', false);
 		},
 		savePokemonImport: function (i) {
+			console.log("savePokemonImport");
 			i = +(this.$('li').attr('value'));
 			var curSet = Storage.importTeam(this.$('.pokemonedit').val())[0];
 			if (curSet) {
