@@ -380,11 +380,11 @@ break;
 }
 }
 if(!window.BattlePokedex)window.BattlePokedex={};
-var data=window.BattlePokedex[id];
-if(!data){
-if(window.room&&window.room.curTeam&&window.room.curTeam.mod)return this.moddedDexes[window.curTeam.mod].getSpecies();else
-console.log("couldn't find mod");
-}
+
+
+
+
+
 
 var species;
 if(data&&typeof data.exists==='boolean'){
@@ -857,9 +857,9 @@ getPokeballs=function getPokeballs(){
 if(this.pokeballs)return this.pokeballs;
 this.pokeballs=[];
 if(!window.BattleItems)window.BattleItems={};for(var _i3=0,_ref2=
-Object.values(window.BattleItems);_i3<_ref2.length;_i3++){var data=_ref2[_i3];
-if(!data.isPokeball)continue;
-this.pokeballs.push(data.name);
+Object.values(window.BattleItems);_i3<_ref2.length;_i3++){var _data=_ref2[_i3];
+if(!_data.isPokeball)continue;
+this.pokeballs.push(_data.name);
 }
 return this.pokeballs;
 };return _temp;}(),_temp)();var
@@ -1015,10 +1015,10 @@ getPokeballs=function getPokeballs(){
 if(this.pokeballs)return this.pokeballs;
 this.pokeballs=[];
 if(!window.BattleItems)window.BattleItems={};for(var _i4=0,_ref3=
-Object.values(window.BattleItems);_i4<_ref3.length;_i4++){var data=_ref3[_i4];
-if(data.gen&&data.gen>this.gen)continue;
-if(!data.isPokeball)continue;
-this.pokeballs.push(data.name);
+Object.values(window.BattleItems);_i4<_ref3.length;_i4++){var _data2=_ref3[_i4];
+if(_data2.gen&&_data2.gen>this.gen)continue;
+if(!_data2.isPokeball)continue;
+this.pokeballs.push(_data2.name);
 }
 return this.pokeballs;
 };return ModdedDex;}();
