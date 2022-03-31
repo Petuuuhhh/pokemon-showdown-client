@@ -367,7 +367,7 @@ var name=nameOrSpecies||'';
 var id=toID(nameOrSpecies);
 var formid=id;
 if(!window.BattlePokedexAltForms)window.BattlePokedexAltForms={};
-if(formid in window.BattlePokedexAltForms)return window[BattlePokedexAltFormsformid];
+if(formid in window.BattlePokedexAltForms)return window.BattlePokedexAltForms[formid];
 if(window.BattleAliases&&id in BattleAliases){
 name=BattleAliases[id];
 id=toID(name);
@@ -381,14 +381,6 @@ break;
 }
 if(!window.BattlePokedex)window.BattlePokedex={};
 var data=window.BattlePokedex[id];
-if(!data){
-if(window.room&&window.room.curTeam&&window.room.curTeam.mod){
-console.log("using modded dex data");
-return this.moddedDexes[window.curTeam.mod].getSpecies();
-}else{
-console.log("couldn't find mod");
-}
-}
 
 var species;
 if(data&&typeof data.exists==='boolean'){
