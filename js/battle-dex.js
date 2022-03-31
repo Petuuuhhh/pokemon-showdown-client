@@ -358,13 +358,14 @@ window.BattleAbilities[id]=ability;
 return ability;
 };_proto2.
 
-getSpecies=function getSpecies(nameOrSpecies){
+getSpecies=function getSpecies(nameOrSpecies){var modded=arguments.length>1&&arguments[1]!==undefined?arguments[1]:false;
 if(nameOrSpecies&&typeof nameOrSpecies!=='string'){
 
 return nameOrSpecies;
 }
 var name=nameOrSpecies||'';
 var id=toID(nameOrSpecies);
+console.log("getSpecies(Dex): "+id+" "+modded);
 var formid=id;
 if(!window.BattlePokedexAltForms)window.BattlePokedexAltForms={};
 if(formid in window.BattlePokedexAltForms)return window[BattlePokedexAltFormsformid];
@@ -381,12 +382,12 @@ break;
 }
 if(!window.BattlePokedex)window.BattlePokedex={};
 var data=window.BattlePokedex[id];
-if(!data){
-if(window.room&&window.room.curTeam&&window.room.curTeam.mod){
-console.log("using modded dex data");
-return this.moddedDexes[window.curTeam.mod].getSpecies();
+if(!data&&!modded){
+if(window.room&&window.room.curTeam&&window.room.curTeam.mod&&this.moddedDexes[window.room.curTeam.mod]){
+console.log("using modded dex data: "+id);
+return this.moddedDexes[window.room.curTeam.mod].getSpecies(id,false,"from Dex: getSpecies");
 }else{
-console.log("couldn't find mod");
+console.log("couldn't find mod: "+id);
 }
 }
 
@@ -427,7 +428,8 @@ return species;
 
 
 getTier=function getTier(pokemon){var genNum=arguments.length>1&&arguments[1]!==undefined?arguments[1]:8;var mod=arguments.length>2?arguments[2]:undefined;
-var species=this.getSpecies(pokemon);
+console.log("Get tier: "+pokemon);
+var species=this.getSpecies(pokemon,undefined,"from getTier");
 if(genNum<8)species=this.forGen(genNum).getSpecies(pokemon);
 var table=window.BattleTeambuilderTable;
 if(!table)return species.tier;
@@ -963,18 +965,24 @@ var ability=new Ability(id,name,data);
 this.cache.Abilities[id]=ability;
 return ability;
 };_proto3.
-getSpecies=function getSpecies(name){
+getSpecies=function getSpecies(name){var hasData=arguments.length>1&&arguments[1]!==undefined?arguments[1]:true;var debug=arguments.length>2&&arguments[2]!==undefined?arguments[2]:"";
 var id=toID(name);
+console.log("getSpecies: "+id+" "+hasData+" "+debug);
 var table=window.BattleTeambuilderTable[this.modid];
 
 
 
 
 if(this.cache.Species.hasOwnProperty(id))return this.cache.Species[id];
-var data=Object.assign({},Dex.getSpecies(name));
+var data={};
+if(hasData){
+data=Object.assign({},Dex.getSpecies(name,true,"from moddedDex: getSpecies 1"));
 if(table.overrideDexInfo[id]){
-for(var key in table.overrideDexInfo[id]){
-data=Object.assign({},Dex.getSpecies(name),table.overrideDexInfo[id]);
+data=Object.assign({},Dex.getSpecies(name,true,"from moddedDex: getSpecies 2"),table.overrideDexInfo[id]);
+}
+}else{
+if(table.overrideDexInfo[id]){
+data=Object.assign({},table.overrideDexInfo[id]);
 }
 }
 if(this.gen<3){

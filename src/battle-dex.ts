@@ -358,13 +358,14 @@ const Dex = new class implements ModdedDex {
 		return ability;
 	}
 
-	getSpecies(nameOrSpecies: string | Species | null | undefined): Species {
+	getSpecies(nameOrSpecies: string | Species | null | undefined, modded = false): Species {
 		if (nameOrSpecies && typeof nameOrSpecies !== 'string') {
 			// TODO: don't accept Species' here
 			return nameOrSpecies;
 		}
 		let name = nameOrSpecies || '';
 		let id = toID(nameOrSpecies);
+		console.log("getSpecies(Dex): " + id + " " + modded);
 		let formid = id;
 		if (!window.BattlePokedexAltForms) window.BattlePokedexAltForms = {};
 		if (formid in window.BattlePokedexAltForms) return window.[BattlePokedexAltFormsformid];
@@ -381,12 +382,12 @@ const Dex = new class implements ModdedDex {
 		}
 		if (!window.BattlePokedex) window.BattlePokedex = {};
 		let data = window.BattlePokedex[id];
-		if (!data) {
-			if (window.room && window.room.curTeam && window.room.curTeam.mod) {
-				console.log("using modded dex data");
-				return this.moddedDexes[window.curTeam.mod].getSpecies();
+		if (!data && !modded) {
+			if (window.room && window.room.curTeam && window.room.curTeam.mod && this.moddedDexes[window.room.curTeam.mod]) {
+				console.log("using modded dex data: " + id);
+				return this.moddedDexes[window.room.curTeam.mod].getSpecies(id, false, "from Dex: getSpecies");
 			} else {
-				console.log("couldn't find mod");
+				console.log("couldn't find mod: " + id);
 			}
 		}
 		
@@ -427,7 +428,8 @@ const Dex = new class implements ModdedDex {
 
 	/** @deprecated */
 	getTier(pokemon: string, genNum = 8, mod?: string): string {
-		let species = this.getSpecies(pokemon);
+		console.log("Get tier: " + pokemon);
+		let species = this.getSpecies(pokemon,undefined,"from getTier");
 		if (genNum < 8) species = this.forGen(genNum).getSpecies(pokemon);
 		let table = window.BattleTeambuilderTable;
 		if (!table) return species.tier;
@@ -963,18 +965,24 @@ class ModdedDex {
 		this.cache.Abilities[id] = ability;
 		return ability;
 	}
-	getSpecies(name: string): Species {
+	getSpecies(name: string, hasData = true, debug = ""): Species {
 		let id = toID(name);
+		console.log("getSpecies: " + id + " " + hasData + " " + debug);
 		const table = window.BattleTeambuilderTable[this.modid];
 		// if (window.BattleAliases && id in BattleAliases && !table.overrideDexInfo[id]) {
 			// name = BattleAliases[id];
 			// id = toID(name);
 		// }
 		if (this.cache.Species.hasOwnProperty(id)) return this.cache.Species[id];
-		let data = {...Dex.getSpecies(name)};
-		if (table.overrideDexInfo[id]) {
-			for (const key in table.overrideDexInfo[id]) {
-				data = {...Dex.getSpecies(name), ...table.overrideDexInfo[id]};
+		let data = {};
+		if (hasData) {
+			data = {...Dex.getSpecies(name, true, "from moddedDex: getSpecies 1")};
+			if (table.overrideDexInfo[id]) {
+				data = {...Dex.getSpecies(name, true, "from moddedDex: getSpecies 2"), ...table.overrideDexInfo[id]};
+			}
+		} else {
+			if (table.overrideDexInfo[id]) {
+				data = {...table.overrideDexInfo[id]};
 			}
 		}
 		if (this.gen < 3) {

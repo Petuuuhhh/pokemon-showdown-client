@@ -1274,6 +1274,7 @@ Storage.exportFolder = function (folder) {
 	return buf;
 };
 Storage.exportTeam = function (team) {
+	console.log("export team");
 	if (!team) return "";
 	if (typeof team === 'string') {
 		if (team.indexOf('\n') >= 0) return team;
@@ -1388,6 +1389,7 @@ Storage.exportTeam = function (team) {
 		}
 		text += "\n";
 	}
+	console.log(text);
 	return text;
 };
 
