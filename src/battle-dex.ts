@@ -367,7 +367,7 @@ const Dex = new class implements ModdedDex {
 		let id = toID(nameOrSpecies);
 		let formid = id;
 		if (!window.BattlePokedexAltForms) window.BattlePokedexAltForms = {};
-		if (formid in window.BattlePokedexAltForms) return window.BattlePokedexAltForms[formid];
+		if (formid in window.BattlePokedexAltForms) return window.[BattlePokedexAltFormsformid];
 		if (window.BattleAliases && id in BattleAliases) {
 			name = BattleAliases[id];
 			id = toID(name);
@@ -381,7 +381,12 @@ const Dex = new class implements ModdedDex {
 		}
 		if (!window.BattlePokedex) window.BattlePokedex = {};
 		let data = window.BattlePokedex[id];
-
+		if (!data) {
+			if (window.room.curTeam.mod) data = this.moddedDexes[window.curTeam.mod].getSpecies();
+			else console.log("couldn't find mod");
+		}
+		
+		
 		let species: Species;
 		if (data && typeof data.exists === 'boolean') {
 			species = data;
