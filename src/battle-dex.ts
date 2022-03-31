@@ -382,14 +382,6 @@ const Dex = new class implements ModdedDex {
 		}
 		if (!window.BattlePokedex) window.BattlePokedex = {};
 		let data = window.BattlePokedex[id];
-		// if (!data && !modded) {
-			// if (window.room && window.room.curTeam && window.room.curTeam.mod && this.moddedDexes[window.room.curTeam.mod]) {
-				// console.log("using modded dex data: " + id);
-				// return this.moddedDexes[window.room.curTeam.mod].getSpecies(id, false, "from Dex: getSpecies");
-			// } else {
-				// console.log("couldn't find mod: " + id);
-			// }
-		// }
 		
 		let species: Species;
 		if (data && typeof data.exists === 'boolean') {
@@ -745,7 +737,7 @@ const Dex = new class implements ModdedDex {
 		let top = Math.floor(num / 12) * 30;
 		let left = (num % 12) * 40;
 		let fainted = ((pokemon as Pokemon | ServerPokemon)?.fainted ? `;opacity:.3;filter:grayscale(100%) brightness(.5)` : ``);
-		let species = Dex.getSpecies(id);
+		let species = window.BattlePokedexAltForms[id] ? window.BattlePokedexAltForms[id] : Dex.getSpecies(id);
 		mod = this.getSpriteMod(mod, id, 'icons', species.exists !== false);
 		if (mod) return `background:transparent url(${this.modResourcePrefix}${mod}/sprites/icons/${id}.png) no-repeat scroll -0px -0px${fainted}`;
 		return `background:transparent url(${Dex.resourcePrefix}sprites/pokemonicons-sheet.png?v4) no-repeat scroll -${left}px -${top}px${fainted}`;
