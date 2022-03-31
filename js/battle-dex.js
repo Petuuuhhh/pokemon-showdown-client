@@ -751,6 +751,7 @@ return"background:transparent url("+Dex.resourcePrefix+"sprites/pokemonicons-she
 };_proto2.
 
 getTeambuilderSpriteData=function getTeambuilderSpriteData(pokemon){var gen=arguments.length>1&&arguments[1]!==undefined?arguments[1]:0;var mod=arguments.length>2&&arguments[2]!==undefined?arguments[2]:'';
+if(!pokemon)return;
 var id=toID(pokemon.species);
 var spriteid=pokemon.spriteid;
 var species=Dex.getSpecies(pokemon.species);

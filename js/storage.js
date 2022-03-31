@@ -1101,8 +1101,10 @@ Storage.importTeam = function (buffer, teams) {
 	} else if (text.length === 1 || (text.length === 2 && !text[1])) {
 		return Storage.unpackTeam(text[0]);
 	}
-	const mod = (window.room.curTeam && window.room.curTeam.mod) ? true : false;
-	var thisDex = mod ? Dex.mod(window.room.curTeam.mod) : Dex;
+	const mod = (window.room.curTeam && window.room.curTeam.mod) ? window.room.curTeam.mod : "";
+	if (!mod) {
+		
+	}
 	for (var i = 0; i < text.length; i++) {
 		var line = $.trim(text[i]);
 		if (line === '' || line === '---') {
@@ -1163,26 +1165,30 @@ Storage.importTeam = function (buffer, teams) {
 			var parenIndex = line.lastIndexOf(' (');
 			if (line.substr(line.length - 1) === ')' && parenIndex !== -1) {
 				line = line.substr(0, line.length - 1);
-				console.log('importTeam A');
-				if (thisDex.getSpecies(line.substr(parenIndex + 2)).exists) {
-					console.log('importTeam A - 1');
-					console.log(ModConfig);
-					curSet.species = thisDex.getSpecies(line.substr(parenIndex + 2)).name;
-				} else {
-					console.log('importTeam A - 2');
-					console.log(ModConfig);
-					var ClientMods = ModConfig;
+				var thisDex = Dex.getSpecies(line.substr(parenIndex + 2)).exists ? Dex : null;
+				if (!thisDex) {
 					for (var modid in (ClientMods)) {
 						if (Dex.mod(modid).getSpecies(line.substr(parenIndex + 2)).exists) {
-							curSet.species = Dex.mod(modid).getSpecies(line.substr(parenIndex + 2)).name;
+							thisDex = Dex.mod(modid);
 						}
 					}
 				}
+				console.log('importTeam A');
+				curSet.species = thisDex.getSpecies(line.substr(parenIndex + 2)).name;
 				line = line.substr(0, parenIndex);
 				curSet.name = line;
 			} else {
+				var thisDex = Dex.getSpecies(line).exists ? Dex : null;
+				if (!thisDex) {
+					for (var modid in (ClientMods)) {
+						if (Dex.mod(modid).getSpecies(line).exists) {
+							thisDex = Dex.mod(modid);
+						}
+					}
+				}
 				curSet.species = thisDex.getSpecies(line).name;
 				curSet.name = '';
+				console.log(ModConfig);
 				console.log('importTeam B ' + line + " - set:");
 				console.log(curSet);
 			}

@@ -751,6 +751,7 @@ const Dex = new class implements ModdedDex {
 	}
 
 	getTeambuilderSpriteData(pokemon: any, gen: number = 0, mod: string = ''): TeambuilderSpriteData {
+		if (!pokemon) return;
 		let id = toID(pokemon.species);
 		let spriteid = pokemon.spriteid;
 		let species = Dex.getSpecies(pokemon.species);
