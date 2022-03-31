@@ -378,7 +378,6 @@ class BattleTextParser {
 	}
 
 	sectionBreak(args: Args, kwArgs: KWArgs) {
-		// console.log("section break: " + args + " " + kwArgs);
 		const prevSection = this.curLineSection;
 		const curSection = this.lineSection(args, kwArgs);
 		if (!curSection) return false;

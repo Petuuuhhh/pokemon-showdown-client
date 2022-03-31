@@ -378,7 +378,6 @@ return cmd.charAt(0)==='-'?'postMajor':'';
 };_proto.
 
 sectionBreak=function sectionBreak(args,kwArgs){
-
 var prevSection=this.curLineSection;
 var curSection=this.lineSection(args,kwArgs);
 if(!curSection)return false;

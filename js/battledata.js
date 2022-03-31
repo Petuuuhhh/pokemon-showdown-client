@@ -367,7 +367,7 @@ var name=nameOrSpecies||'';
 var id=toID(nameOrSpecies);
 var formid=id;
 if(!window.BattlePokedexAltForms)window.BattlePokedexAltForms={};
-if(formid in window.BattlePokedexAltForms)return window[BattlePokedexAltFormsformid];
+if(formid in window.BattlePokedexAltForms)return window[BattlePokedexAltForms[formid]];
 if(window.BattleAliases&&id in BattleAliases){
 name=BattleAliases[id];
 id=toID(name);
@@ -3923,7 +3923,6 @@ return cmd.charAt(0)==='-'?'postMajor':'';
 };_proto.
 
 sectionBreak=function sectionBreak(args,kwArgs){
-
 var prevSection=this.curLineSection;
 var curSection=this.lineSection(args,kwArgs);
 if(!curSection)return false;

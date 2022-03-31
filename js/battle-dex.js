@@ -367,7 +367,7 @@ var name=nameOrSpecies||'';
 var id=toID(nameOrSpecies);
 var formid=id;
 if(!window.BattlePokedexAltForms)window.BattlePokedexAltForms={};
-if(formid in window.BattlePokedexAltForms)return window[BattlePokedexAltFormsformid];
+if(formid in window.BattlePokedexAltForms)return window[BattlePokedexAltForms[formid]];
 if(window.BattleAliases&&id in BattleAliases){
 name=BattleAliases[id];
 id=toID(name);
