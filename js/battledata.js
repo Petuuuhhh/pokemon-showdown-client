@@ -363,7 +363,6 @@ if(nameOrSpecies&&typeof nameOrSpecies!=='string'){
 
 return nameOrSpecies;
 }
-if(!window.BattlePokedex)window.BattlePokedex={};
 var name=nameOrSpecies||'';
 var id=toID(nameOrSpecies);
 var formid=id;
@@ -380,7 +379,8 @@ break;
 }
 }
 }
-
+if(!window.BattlePokedex)window.BattlePokedex={};
+var data=window.BattlePokedex[id];
 var species;
 if(data&&typeof data.exists==='boolean'){
 species=data;
@@ -412,7 +412,7 @@ break;
 }
 }
 }
-var data=window.BattlePokedex[id];
+
 if(!data.exists&&!modded){
 if(window.room&&window.room.curTeam&&window.room.curTeam.mod&&this.moddedDexes[window.room.curTeam.mod]){
 console.log("using modded dex data: "+id);

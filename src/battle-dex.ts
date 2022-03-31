@@ -363,7 +363,6 @@ const Dex = new class implements ModdedDex {
 			// TODO: don't accept Species' here
 			return nameOrSpecies;
 		}
-		if (!window.BattlePokedex) window.BattlePokedex = {};
 		let name = nameOrSpecies || '';
 		let id = toID(nameOrSpecies);
 		let formid = id;
@@ -380,7 +379,8 @@ const Dex = new class implements ModdedDex {
 				}
 			}
 		}
-		
+		if (!window.BattlePokedex) window.BattlePokedex = {};
+		let data = window.BattlePokedex[id];
 		let species: Species;
 		if (data && typeof data.exists === 'boolean') {
 			species = data;
@@ -412,7 +412,7 @@ const Dex = new class implements ModdedDex {
 				}
 			}
 		}
-		let data = window.BattlePokedex[id];
+		
 		if (!data.exists && !modded) {
 			if (window.room && window.room.curTeam && window.room.curTeam.mod && this.moddedDexes[window.room.curTeam.mod]) {
 				console.log("using modded dex data: " + id);
