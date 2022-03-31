@@ -387,8 +387,8 @@ const Dex = new class implements ModdedDex {
 				return this.moddedDexes[window.room.curTeam.mod].getSpecies(id, false, "from Dex: getSpecies");
 			}
 		} else {
-			for (var modid in (ClientMods)) {
-				for (var formatid in ClientMods[modid].formats) {
+			for (var modid in (ModConfig)) {
+				for (var formatid in ModConfig[modid].formats) {
 					if (this.moddedDexes[modid] && this.moddedDexes[modid].getSpecies(id, false, "from Dex: getSpecies")) {
 						return this.moddedDexes[modid].getSpecies(id, false, "from Dex: getSpecies")
 					}
