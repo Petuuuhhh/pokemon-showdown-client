@@ -749,7 +749,7 @@ const Dex = new class implements ModdedDex {
 		console.log(pokemon);
 		let id = toID(pokemon.species);
 		let spriteid = pokemon.spriteid;
-		let species = window.BattlePokedexAltFormsBattlePokedexAltForms[id] ? window.BattlePokedexAltFormsBattlePokedexAltForms[id] : Dex.getSpecies(pokemon.species);
+		let species = window.BattlePokedexAltForms && window.BattlePokedexAltFormsBattlePokedexAltForms[id] ? window.BattlePokedexAltFormsBattlePokedexAltForms[id] : Dex.getSpecies(pokemon.species);
 		console.log(species);
 		if (pokemon.species && !spriteid) {
 			spriteid = species.spriteid || toID(pokemon.species);
