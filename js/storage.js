@@ -1164,9 +1164,13 @@ Storage.importTeam = function (buffer, teams) {
 			if (line.substr(line.length - 1) === ')' && parenIndex !== -1) {
 				line = line.substr(0, line.length - 1);
 				console.log('importTeam A');
-				if (thisDex.getSpecies(line.substr(parenIndex + 2)).exists) curSet.species = thisDex.getSpecies(line.substr(parenIndex + 2)).name;
-				else {
-					console.log(window.ClientMods);
+				if (thisDex.getSpecies(line.substr(parenIndex + 2)).exists) {
+					console.log('importTeam A - 1');
+					console.log(ModConfig);
+					curSet.species = thisDex.getSpecies(line.substr(parenIndex + 2)).name;
+				} else {
+					console.log('importTeam A - 2');
+					console.log(ModConfig);
 					curSet.species = line;
 				}
 				line = line.substr(0, parenIndex);
