@@ -363,6 +363,7 @@ if(nameOrSpecies&&typeof nameOrSpecies!=='string'){
 
 return nameOrSpecies;
 }
+if(!window.BattlePokedex)window.BattlePokedex={};
 var name=nameOrSpecies||'';
 var id=toID(nameOrSpecies);
 var formid=id;
@@ -376,22 +377,6 @@ BattleBaseSpeciesChart;_i<_BattleBaseSpeciesCha.length;_i++){var baseSpeciesId=_
 if(formid.startsWith(baseSpeciesId)){
 id=baseSpeciesId;
 break;
-}
-}
-}
-if(!window.BattlePokedex)window.BattlePokedex={};
-var data=window.BattlePokedex[id];
-if(!data&&!modded){
-if(window.room&&window.room.curTeam&&window.room.curTeam.mod&&this.moddedDexes[window.room.curTeam.mod]){
-console.log("using modded dex data: "+id);
-return this.moddedDexes[window.room.curTeam.mod].getSpecies(id,false,"from Dex: getSpecies");
-}
-}else{
-for(var modid in ModConfig){
-for(var formatid in ModConfig[modid].formats){
-if(this.moddedDexes[modid]&&this.moddedDexes[modid].getSpecies(id,false,"from Dex: getSpecies")){
-return this.moddedDexes[modid].getSpecies(id,false,"from Dex: getSpecies");
-}
 }
 }
 }
@@ -427,6 +412,22 @@ break;
 }
 }
 }
+var data=window.BattlePokedex[id];
+if(!data.exists&&!modded){
+if(window.room&&window.room.curTeam&&window.room.curTeam.mod&&this.moddedDexes[window.room.curTeam.mod]){
+console.log("using modded dex data: "+id);
+return this.moddedDexes[window.room.curTeam.mod].getSpecies(id,false,"from Dex: getSpecies");
+}
+}else{
+for(var modid in ModConfig){
+for(var formatid in ModConfig[modid].formats){
+if(this.moddedDexes[modid]&&this.moddedDexes[modid].getSpecies(id,false,"from Dex: getSpecies")){
+return this.moddedDexes[modid].getSpecies(id,false,"from Dex: getSpecies");
+}
+}
+}
+}
+
 return species;
 };_proto2.
 

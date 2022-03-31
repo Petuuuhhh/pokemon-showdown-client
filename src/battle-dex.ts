@@ -363,6 +363,7 @@ const Dex = new class implements ModdedDex {
 			// TODO: don't accept Species' here
 			return nameOrSpecies;
 		}
+		if (!window.BattlePokedex) window.BattlePokedex = {};
 		let name = nameOrSpecies || '';
 		let id = toID(nameOrSpecies);
 		let formid = id;
@@ -376,22 +377,6 @@ const Dex = new class implements ModdedDex {
 				if (formid.startsWith(baseSpeciesId)) {
 					id = baseSpeciesId;
 					break;
-				}
-			}
-		}
-		if (!window.BattlePokedex) window.BattlePokedex = {};
-		let data = window.BattlePokedex[id];
-		if (!data && !modded) {
-			if (window.room && window.room.curTeam && window.room.curTeam.mod && this.moddedDexes[window.room.curTeam.mod]) {
-				console.log("using modded dex data: " + id);
-				return this.moddedDexes[window.room.curTeam.mod].getSpecies(id, false, "from Dex: getSpecies");
-			}
-		} else {
-			for (var modid in (ModConfig)) {
-				for (var formatid in ModConfig[modid].formats) {
-					if (this.moddedDexes[modid] && this.moddedDexes[modid].getSpecies(id, false, "from Dex: getSpecies")) {
-						return this.moddedDexes[modid].getSpecies(id, false, "from Dex: getSpecies")
-					}
 				}
 			}
 		}
@@ -427,6 +412,22 @@ const Dex = new class implements ModdedDex {
 				}
 			}
 		}
+		let data = window.BattlePokedex[id];
+		if (!data.exists && !modded) {
+			if (window.room && window.room.curTeam && window.room.curTeam.mod && this.moddedDexes[window.room.curTeam.mod]) {
+				console.log("using modded dex data: " + id);
+				return this.moddedDexes[window.room.curTeam.mod].getSpecies(id, false, "from Dex: getSpecies");
+			}
+		} else {
+			for (var modid in (ModConfig)) {
+				for (var formatid in ModConfig[modid].formats) {
+					if (this.moddedDexes[modid] && this.moddedDexes[modid].getSpecies(id, false, "from Dex: getSpecies")) {
+						return this.moddedDexes[modid].getSpecies(id, false, "from Dex: getSpecies")
+					}
+				}
+			}
+		}
+		
 		return species;
 	}
 
