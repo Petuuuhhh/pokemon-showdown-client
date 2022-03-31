@@ -737,7 +737,8 @@ var num=this.getPokemonIconNum(id,((_pokemon4=pokemon)==null?void 0:_pokemon4.ge
 var top=Math.floor(num/12)*30;
 var left=num%12*40;
 var fainted=(_pokemon5=pokemon)!=null&&_pokemon5.fainted?";opacity:.3;filter:grayscale(100%) brightness(.5)":"";
-var species=window.BattlePokedexAltForms[id]?window.BattlePokedexAltForms[id]:Dex.getSpecies(id);
+Dex.getSpecies(id);
+var species=window.BattlePokedexAltForms&&window.BattlePokedexAltForms[id]?window.BattlePokedexAltForms[id]:Dex.getSpecies(id);
 mod=this.getSpriteMod(mod,id,'icons',species.exists!==false);
 if(mod)return"background:transparent url("+this.modResourcePrefix+mod+"/sprites/icons/"+id+".png) no-repeat scroll -0px -0px"+fainted;
 return"background:transparent url("+Dex.resourcePrefix+"sprites/pokemonicons-sheet.png?v4) no-repeat scroll -"+left+"px -"+top+"px"+fainted;
