@@ -3332,6 +3332,8 @@
 		},
 		setForm: function (form) {
 			var species = this.room.dex.getSpecies(this.curSet.species,undefined, "from setForm");
+			console.log("setForm " + form);
+			console.log(species);
 			if (form && form !== species.form) {
 				this.curSet.species = this.room.dex.getSpecies(species.baseSpecies + form).name;
 			} else if (!form) {
