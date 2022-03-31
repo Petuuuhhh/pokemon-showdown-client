@@ -197,7 +197,6 @@
 		case 'sortmove':
 			return this.renderMoveSortRow();
 		case 'pokemon':
-			console.log("render row switch statement: " + id);
 			var pokemon = this.engine.dex.getSpecies(id,undefined, "from renderRow");
 			return this.renderPokemonRow(pokemon, matchStart, matchLength, errorMessage, attrs);
 		case 'move':
@@ -286,7 +285,6 @@
 		return buf;
 	};
 	Search.prototype.renderPokemonRow = function (pokemon, matchStart, matchLength, errorMessage, attrs) {
-		console.log("Render Pokemon Row");
 		if (!attrs) attrs = '';
 		if (!pokemon) return '<li class="result">Unrecognized pokemon</li>';
 		var id = toID(pokemon.name);
@@ -385,7 +383,6 @@
 		return buf;
 	};
 	Search.prototype.renderTaggedPokemonRowInner = function (pokemon, tag, errorMessage) {
-		console.log("Render Pokemon Row Inner");
 		var attrs = '';
 		if (Search.urlRoot) attrs = ' href="' + Search.urlRoot + 'pokemon/' + toID(pokemon.name) + '" data-target="push"';
 		var buf = '<a' + attrs + ' data-entry="pokemon|' + BattleLog.escapeHTML(pokemon.name) + '">';

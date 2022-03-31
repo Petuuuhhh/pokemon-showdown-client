@@ -358,14 +358,13 @@ window.BattleAbilities[id]=ability;
 return ability;
 };_proto2.
 
-getSpecies=function getSpecies(nameOrSpecies){var modded=arguments.length>1&&arguments[1]!==undefined?arguments[1]:false;
+getSpecies=function getSpecies(nameOrSpecies){var modded=arguments.length>1&&arguments[1]!==undefined?arguments[1]:false;var debug=arguments.length>2&&arguments[2]!==undefined?arguments[2]:"";
 if(nameOrSpecies&&typeof nameOrSpecies!=='string'){
 
 return nameOrSpecies;
 }
 var name=nameOrSpecies||'';
 var id=toID(nameOrSpecies);
-console.log("getSpecies(Dex): "+id+" "+modded);
 var formid=id;
 if(!window.BattlePokedexAltForms)window.BattlePokedexAltForms={};
 if(formid in window.BattlePokedexAltForms)return window[BattlePokedexAltFormsformid];
@@ -428,7 +427,6 @@ return species;
 
 
 getTier=function getTier(pokemon){var genNum=arguments.length>1&&arguments[1]!==undefined?arguments[1]:8;var mod=arguments.length>2?arguments[2]:undefined;
-console.log("Get tier: "+pokemon);
 var species=this.getSpecies(pokemon,undefined,"from getTier");
 if(genNum<8)species=this.forGen(genNum).getSpecies(pokemon);
 var table=window.BattleTeambuilderTable;
@@ -967,7 +965,6 @@ return ability;
 };_proto3.
 getSpecies=function getSpecies(name){var hasData=arguments.length>1&&arguments[1]!==undefined?arguments[1]:true;var debug=arguments.length>2&&arguments[2]!==undefined?arguments[2]:"";
 var id=toID(name);
-console.log("getSpecies: "+id+" "+hasData+" "+debug);
 var table=window.BattleTeambuilderTable[this.modid];
 
 
