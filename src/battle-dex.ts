@@ -979,6 +979,7 @@ class ModdedDex {
 				data = {...table.overrideDexInfo[id]};
 			}
 		}
+		
 		if (this.gen < 3) {
 			data.abilities = {0: "None"};
 		}
@@ -989,6 +990,22 @@ class ModdedDex {
 		}
 		if (!data.tier && data.baseSpecies && toID(data.baseSpecies) !== id) {
 			data.tier = this.getSpecies(data.baseSpecies).tier;
+		}
+		if (data.cosmeticFormes) {
+			for (const forme of data.cosmeticFormes) {
+				if (toID(forme) === formid) {
+					data = new Species(formid, name, {
+						...data,
+						name: forme,
+						forme: forme.slice(data.name.length + 1),
+						baseForme: "",
+						baseSpecies: data.name,
+						otherFormes: null,
+					});
+					window.BattlePokedexAltForms[formid] = data;
+					break;
+				}
+			}
 		}
 		if (data.gen > this.gen) data.tier = 'Illegal';
 		const species = new Species(id, name, data);

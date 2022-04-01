@@ -979,6 +979,7 @@ if(table.overrideDexInfo[id]){
 data=Object.assign({},table.overrideDexInfo[id]);
 }
 }
+
 if(this.gen<3){
 data.abilities={0:"None"};
 }
@@ -989,6 +990,22 @@ data.tier=this.getSpecies(id.slice(0,-5)).tier;
 }
 if(!data.tier&&data.baseSpecies&&toID(data.baseSpecies)!==id){
 data.tier=this.getSpecies(data.baseSpecies).tier;
+}
+if(data.cosmeticFormes){for(var _i4=0,_data$cosmeticFormes=
+data.cosmeticFormes;_i4<_data$cosmeticFormes.length;_i4++){var forme=_data$cosmeticFormes[_i4];
+if(toID(forme)===formid){
+data=new Species(formid,name,Object.assign({},
+data,{
+name:forme,
+forme:forme.slice(data.name.length+1),
+baseForme:"",
+baseSpecies:data.name,
+otherFormes:null}));
+
+window.BattlePokedexAltForms[formid]=data;
+break;
+}
+}
 }
 if(data.gen>this.gen)data.tier='Illegal';
 var species=new Species(id,name,data);
@@ -1020,8 +1037,8 @@ return data;
 getPokeballs=function getPokeballs(){
 if(this.pokeballs)return this.pokeballs;
 this.pokeballs=[];
-if(!window.BattleItems)window.BattleItems={};for(var _i4=0,_ref3=
-Object.values(window.BattleItems);_i4<_ref3.length;_i4++){var data=_ref3[_i4];
+if(!window.BattleItems)window.BattleItems={};for(var _i5=0,_ref3=
+Object.values(window.BattleItems);_i5<_ref3.length;_i5++){var data=_ref3[_i5];
 if(data.gen&&data.gen>this.gen)continue;
 if(!data.isPokeball)continue;
 this.pokeballs.push(data.name);
