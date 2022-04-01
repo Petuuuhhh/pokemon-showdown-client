@@ -368,21 +368,29 @@ var id=toID(nameOrSpecies);
 var formid=id;
 if(debug)console.log("getSpecies (Dex): "+debug+' '+id);
 if(!window.BattlePokedexAltForms)window.BattlePokedexAltForms={};
-if(formid in window.BattlePokedexAltForms)return window[BattlePokedexAltForms[formid]];
+if(formid in window.BattlePokedexAltForms){
+console.log("alt form found in BattlePokedexAltForms");
+console.log(BattlePokedexAltForms[formid]);
+return window.BattlePokedexAltForms[formid];
+}
 if(window.BattleAliases&&id in BattleAliases){
+
 name=BattleAliases[id];
 id=toID(name);
+console.log("battle aliases found: "+id);
 }else if(window.BattlePokedex&&!(id in BattlePokedex)&&window.BattleBaseSpeciesChart){for(var _i=0,_BattleBaseSpeciesCha=
 BattleBaseSpeciesChart;_i<_BattleBaseSpeciesCha.length;_i++){var baseSpeciesId=_BattleBaseSpeciesCha[_i];
 if(formid.startsWith(baseSpeciesId)){
 id=baseSpeciesId;
+console.log("found in base species chart: "+id);
 break;
 }
 }
 }
 if(!window.BattlePokedex)window.BattlePokedex={};
 var data=window.BattlePokedex[id];
-
+console.log("data: ");
+console.log(data);
 var species;
 if(data&&typeof data.exists==='boolean'){
 species=data;
@@ -398,8 +406,10 @@ species=new Species(id,name,data);
 window.BattlePokedex[id]=species;
 }
 
-if(species.cosmeticFormes){for(var _i2=0,_species$cosmeticForm=
+if(species.cosmeticFormes){
+console.log("cosmetic formes found");for(var _i2=0,_species$cosmeticForm=
 species.cosmeticFormes;_i2<_species$cosmeticForm.length;_i2++){var forme=_species$cosmeticForm[_i2];
+console.log(forme);
 if(toID(forme)===formid){
 species=new Species(formid,name,Object.assign({},
 species,{
@@ -410,6 +420,7 @@ baseSpecies:species.name,
 otherFormes:null}));
 
 window.BattlePokedexAltForms[formid]=species;
+console.log(window.BattlePokedexAltForms[formid]);
 break;
 }
 }

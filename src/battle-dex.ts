@@ -368,21 +368,29 @@ const Dex = new class implements ModdedDex {
 		let formid = id;
 		if (debug) console.log("getSpecies (Dex): " + debug + ' ' + id);
 		if (!window.BattlePokedexAltForms) window.BattlePokedexAltForms = {};
-		if (formid in window.BattlePokedexAltForms) return window.[BattlePokedexAltForms[formid]];
+		if (formid in window.BattlePokedexAltForms) {
+			console.log("alt form found in BattlePokedexAltForms");
+			console.log(BattlePokedexAltForms[formid]);
+			return window.BattlePokedexAltForms[formid];
+		}
 		if (window.BattleAliases && id in BattleAliases) {
+			
 			name = BattleAliases[id];
 			id = toID(name);
+			console.log("battle aliases found: " + id);
 		} else if (window.BattlePokedex && !(id in BattlePokedex) && window.BattleBaseSpeciesChart) {
 			for (const baseSpeciesId of BattleBaseSpeciesChart) {
 				if (formid.startsWith(baseSpeciesId)) {
 					id = baseSpeciesId;
+					console.log("found in base species chart: " + id);
 					break;
 				}
 			}
 		}
 		if (!window.BattlePokedex) window.BattlePokedex = {};
 		let data = window.BattlePokedex[id];
-		
+		console.log("data: ");
+		console.log(data);
 		let species: Species;
 		if (data && typeof data.exists === 'boolean') {
 			species = data;
@@ -399,7 +407,9 @@ const Dex = new class implements ModdedDex {
 		}
 
 		if (species.cosmeticFormes) {
+			console.log("cosmetic formes found");
 			for (const forme of species.cosmeticFormes) {
+				console.log(forme);
 				if (toID(forme) === formid) {
 					species = new Species(formid, name, {
 						...species,
@@ -410,6 +420,7 @@ const Dex = new class implements ModdedDex {
 						otherFormes: null,
 					});
 					window.BattlePokedexAltForms[formid] = species;
+					console.log(window.BattlePokedexAltForms[formid]);
 					break;
 				}
 			}

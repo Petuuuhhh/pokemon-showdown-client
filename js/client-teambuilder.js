@@ -1158,10 +1158,11 @@
 		},
 		renderSet: function (set, i) {
 			var species = this.dex.getSpecies(set.species,undefined,"from render set");
+			console.log(species);
 			var isLetsGo = this.curTeam.format.includes('letsgo');
 			var isNatDex = this.curTeam.format.includes('nationaldex');
 			var buf = '<li value="' + i + '">';
-			if (!set.species) {
+			if (!set.species || !species) {
 				if (this.deletedSet) {
 					buf += '<div class="setmenu setmenu-left"><button name="undeleteSet"><i class="fa fa-undo"></i> Undo Delete</button></div>';
 				}
@@ -3192,8 +3193,9 @@
 			var species = 0;
 			if (this.curTeam.mod) species = Dex.mod(this.curTeam.mod).getSpecies(set.species,undefined, "from getStat 1");
 			else species = Dex.forGen(this.curTeam.gen).getSpecies(set.species,undefined, "from getStat 2");
-			if (!species.exists) return 0;
-
+			console.log(species);
+			if (!species || !species.exists) return 0;
+			
 			if (!set.level) set.level = 100;
 			if (typeof set.ivs[stat] === 'undefined') set.ivs[stat] = 31;
 
