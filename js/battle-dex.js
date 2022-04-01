@@ -366,7 +366,7 @@ return nameOrSpecies;
 var name=nameOrSpecies||'';
 var id=toID(nameOrSpecies);
 var formid=id;
-if(debug)console.log("getSpecies (Dex): "+debug+' '+id);
+
 if(!window.BattlePokedexAltForms)window.BattlePokedexAltForms={};
 if(formid in window.BattlePokedexAltForms){
 return window.BattlePokedexAltForms[formid];
@@ -889,7 +889,7 @@ if(window.BattleAliases&&id in BattleAliases){
 name=BattleAliases[id];
 id=toID(name);
 }
-if(this.cache.Moves.hasOwnProperty(id))return this.cache.Moves[id];
+
 
 var data=Object.assign({},Dex.getMove(name));
 
@@ -937,7 +937,7 @@ if(window.BattleAliases&&id in BattleAliases){
 name=BattleAliases[id];
 id=toID(name);
 }
-if(this.cache.Abilities.hasOwnProperty(id))return this.cache.Abilities[id];
+
 var table=BattleTeambuilderTable[this.modid];
 var data=Object.assign({},Dex.getAbility(name));
 if(table.fullAbilityName&&id in table.fullAbilityName){
@@ -961,18 +961,17 @@ return ability;
 getSpecies=function getSpecies(name){var hasData=arguments.length>1&&arguments[1]!==undefined?arguments[1]:true;var debug=arguments.length>2&&arguments[2]!==undefined?arguments[2]:"";
 var id=toID(name);
 var formid=id;
-if(debug)console.log("getSpecies (ModdedDex): "+debug+' '+id);
-if(!window.BattlePokedexAltForms)window.BattlePokedexAltForms={};
-if(formid in window.BattlePokedexAltForms){
-console.log("found form in BattlePokedexAltForms: "+formid);
-return window.BattlePokedexAltForms[formid];
-}
+
+if(name.includes('-'))this.getSpecies(name.split('-')[0]);
 var table=window.BattleTeambuilderTable[this.modid];
+if(!table.BattlePokedexAltForms)table.BattlePokedexAltForms={};
+if(formid in table.BattlePokedexAltForms){
+return table.BattlePokedexAltForms[formid];
+}
 if(!table.BattleBaseSpeciesChart)table.BattleBaseSpeciesChart=[];
 if(window.BattleAliases&&id in BattleAliases&&!table.overrideDexInfo[id]){
 name=BattleAliases[id];
 id=toID(name);
-console.log("found battle alias: "+id);
 }else if(table.overrideDexInfo&&!(id in table.overrideDexInfo)&&table.BattleBaseSpeciesChart){for(var _i4=0,_table$BattleBaseSpec=
 table.BattleBaseSpeciesChart;_i4<_table$BattleBaseSpec.length;_i4++){var baseSpeciesId=_table$BattleBaseSpec[_i4];
 if(formid.startsWith(baseSpeciesId)){
@@ -981,7 +980,7 @@ break;
 }
 }
 }
-if(this.cache.Species.hasOwnProperty(id))return this.cache.Species[id];
+
 var data={};
 if(hasData){
 data=Object.assign({},Dex.getSpecies(name,true,"from moddedDex: getSpecies 1"));
@@ -1006,9 +1005,7 @@ if(!data.tier&&data.baseSpecies&&toID(data.baseSpecies)!==id){
 data.tier=this.getSpecies(data.baseSpecies).tier;
 }
 if(data.cosmeticFormes){
-console.log("has cosmeticFormes");
-if(!table.BattleBaseSpeciesChart.includes(id))table.BattleBaseSpeciesChart.push(id);
-console.log(table.BattleBaseSpeciesChart);for(var _i5=0,_data$cosmeticFormes=
+if(!table.BattleBaseSpeciesChart.includes(id))table.BattleBaseSpeciesChart.push(id);for(var _i5=0,_data$cosmeticFormes=
 data.cosmeticFormes;_i5<_data$cosmeticFormes.length;_i5++){var forme=_data$cosmeticFormes[_i5];
 if(toID(forme)===formid){
 data=new Species(formid,name,Object.assign({},
@@ -1019,9 +1016,7 @@ baseForme:"",
 baseSpecies:data.name,
 otherFormes:null}));
 
-window.BattlePokedexAltForms[formid]=data;
-console.log("cosmetic forme found: ");
-console.log(data);
+table.BattlePokedexAltForms[formid]=data;
 break;
 }
 }
@@ -1035,7 +1030,7 @@ getType=function getType(name){
 var id=toID(name);
 id=id.substr(0,1).toUpperCase()+id.substr(1);
 
-if(this.cache.Types.hasOwnProperty(id))return this.cache.Types[id];
+
 
 var data=Object.assign({},Dex.getType(name));
 

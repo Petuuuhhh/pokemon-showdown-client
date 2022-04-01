@@ -1158,7 +1158,6 @@
 		},
 		renderSet: function (set, i) {
 			var species = this.dex.getSpecies(set.species,undefined,"from render set");
-			console.log(species);
 			var isLetsGo = this.curTeam.format.includes('letsgo');
 			var isNatDex = this.curTeam.format.includes('nationaldex');
 			var buf = '<li value="' + i + '">';
@@ -3193,7 +3192,6 @@
 			var species = 0;
 			if (this.curTeam.mod) species = Dex.mod(this.curTeam.mod).getSpecies(set.species,undefined, "from getStat 1");
 			else species = Dex.forGen(this.curTeam.gen).getSpecies(set.species,undefined, "from getStat 2");
-			console.log(species);
 			if (!species || !species.exists) return 0;
 			
 			if (!set.level) set.level = 100;
@@ -3301,10 +3299,13 @@
 			var species = this.room.dex.getSpecies(this.curSet.species,undefined, "from AltFormPopup");
 			var baseid = toID(species.baseSpecies);
 			var forms = [baseid].concat(species.cosmeticFormes.map(toID));
-			let modSprite = Dex.getSpriteMod(mod, species.id, 'front', species.exists !== false);
+			let modSprite = Dex.getSpriteMod(mod, baseid, 'front', species.exists !== false);
+			if (!modSprite) modSprite = Dex.getSpriteMod(mod, species.id, 'front', species.exists !== false);
 			let resourcePrefix = Dex.resourcePrefix;
+			let d = "-";
 			if (modSprite) {
 				resourcePrefix = Dex.modResourcePrefix + mod + '/';
+				d = "";
 			}
 			var spriteDir = resourcePrefix + 'sprites/';
 			var spriteSize = 96;
@@ -3332,7 +3333,7 @@
 				var form = (formid ? formid[0].toUpperCase() + formid.slice(1) : '');
 				var offset = '-' + (((i - 1) % 7) * spriteSize) + 'px -' + (Math.floor((i - 1) / 7) * spriteSize) + 'px';
 				buf += '<button name="setForm" value="' + form + '"  style="';
-				buf += 'background-position:' + offset + '; background: url(' + spriteDir + '/' + baseid + (form ? '-' + formid : '') + '.png) no-repeat; ' + spriteDim + '"';
+				buf += 'background-position:' + offset + '; background: url(' + spriteDir + '/' + baseid + (form ? d + formid : '') + '.png) no-repeat; ' + spriteDim + '"';
 				buf += (form === species.forme || (form === '' && !species.forme) ? ' class="cur"' : '') + '></button>';
 			}
 			buf += '</div>';
@@ -3343,12 +3344,9 @@
 		},
 		setForm: function (form) {
 			var species = this.room.dex.getSpecies(this.curSet.species,undefined, "from setForm");
-			console.log("setForm " + form);
-			console.log(species);
 			if (form && form !== species.forme) {
 				this.curSet.species = this.room.dex.getSpecies(species.baseSpecies + '-' + form,undefined, "trying to get cosmetic forme data").name;
 			} else if (!form) {
-				console.log("no form");
 				this.curSet.species = species.baseSpecies;
 			}
 			this.close();
