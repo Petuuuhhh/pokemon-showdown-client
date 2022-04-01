@@ -1218,7 +1218,7 @@ process.stdout.write("Building `data/teambuilder-tables.js`... ");
 			items.push(...itemTable.slice(1));
 			//moves
 			const overrideMoveInfo = {};
-			const overrideMoveKeys = ['basePower', 'accuracy', 'category', 'pp', 'isNonstandard', 'shortDesc'];
+			const overrideMoveKeys = ['basePower', 'accuracy', 'category', 'pp', 'isNonstandard', 'shortDesc', 'type'];
 			BattleTeambuilderTable[modid].overrideMoveInfo = overrideMoveInfo;
 			for (const id in modData.Moves) {
 				const modEntry = modData.Moves[id];
