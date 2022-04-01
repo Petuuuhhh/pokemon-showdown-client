@@ -3333,7 +3333,7 @@
 				var offset = '-' + (((i - 1) % 7) * spriteSize) + 'px -' + (Math.floor((i - 1) / 7) * spriteSize) + 'px';
 				buf += '<button name="setForm" value="' + form + '"  style="';
 				buf += 'background-position:' + offset + '; background: url(' + spriteDir + '/' + baseid + (form ? '-' + formid : '') + '.png) no-repeat; ' + spriteDim + '"';
-				buf += (form === species.form || (form === '' && !species.form) ? ' class="cur"' : '') + '></button>';
+				buf += (form === species.forme || (form === '' && !species.forme) ? ' class="cur"' : '') + '></button>';
 			}
 			buf += '</div>';
 
@@ -3345,9 +3345,10 @@
 			var species = this.room.dex.getSpecies(this.curSet.species,undefined, "from setForm");
 			console.log("setForm " + form);
 			console.log(species);
-			if (form && form !== species.form) {
-				this.curSet.species = this.room.dex.getSpecies(species.baseSpecies + form).name;
+			if (form && form !== species.forme) {
+				this.curSet.species = this.room.dex.getSpecies(species.baseSpecies + '-' + form,undefined, "trying to get cosmetic forme data").name;
 			} else if (!form) {
+				console.log("no form");
 				this.curSet.species = species.baseSpecies;
 			}
 			this.close();

@@ -372,7 +372,6 @@ const Dex = new class implements ModdedDex {
 			return window.BattlePokedexAltForms[formid];
 		}
 		if (window.BattleAliases && id in BattleAliases) {
-			
 			name = BattleAliases[id];
 			id = toID(name);
 		} else if (window.BattlePokedex && !(id in BattlePokedex) && window.BattleBaseSpeciesChart) {
@@ -962,24 +961,35 @@ class ModdedDex {
 	getSpecies(name: string, hasData = true, debug = ""): Species {
 		let id = toID(name);
 		let formid = id;
+		if (debug) console.log("getSpecies (ModdedDex): " + debug + ' ' + id);
 		if (!window.BattlePokedexAltForms) window.BattlePokedexAltForms = {};
 		if (formid in window.BattlePokedexAltForms) {
+			console.log("found form in BattlePokedexAltForms: " + formid);
 			return window.BattlePokedexAltForms[formid];
 		}
 		const table = window.BattleTeambuilderTable[this.modid];
+		if (!table.BattleBaseSpeciesChart) table.BattleBaseSpeciesChart = [];
 		if (window.BattleAliases && id in BattleAliases && !table.overrideDexInfo[id]) {
 			name = BattleAliases[id];
 			id = toID(name);
+			console.log("found battle alias: " + id);
+		} else if (table.overrideDexInfo && !(id in table.overrideDexInfo) && table.BattleBaseSpeciesChart) {
+			for (const baseSpeciesId of table.BattleBaseSpeciesChart) {
+				if (formid.startsWith(baseSpeciesId)) {
+					id = baseSpeciesId;
+					break;
+				}
+			}
 		}
 		if (this.cache.Species.hasOwnProperty(id)) return this.cache.Species[id];
 		let data = {};
 		if (hasData) {
 			data = {...Dex.getSpecies(name, true, "from moddedDex: getSpecies 1")};
-			if (table.overrideDexInfo[id]) {
+			if (table.overrideDexInfo && table.overrideDexInfo[id]) {
 				data = {...Dex.getSpecies(name, true, "from moddedDex: getSpecies 2"), ...table.overrideDexInfo[id]};
 			}
 		} else {
-			if (table.overrideDexInfo[id]) {
+			if (table.overrideDexInfo && table.overrideDexInfo[id]) {
 				data = {...table.overrideDexInfo[id]};
 			}
 		}
@@ -996,6 +1006,9 @@ class ModdedDex {
 			data.tier = this.getSpecies(data.baseSpecies).tier;
 		}
 		if (data.cosmeticFormes) {
+			console.log("has cosmeticFormes");
+			if (!table.BattleBaseSpeciesChart.includes(id)) table.BattleBaseSpeciesChart.push(id);
+			console.log(table.BattleBaseSpeciesChart);
 			for (const forme of data.cosmeticFormes) {
 				if (toID(forme) === formid) {
 					data = new Species(formid, name, {
@@ -1007,6 +1020,8 @@ class ModdedDex {
 						otherFormes: null,
 					});
 					window.BattlePokedexAltForms[formid] = data;
+					console.log("cosmetic forme found: ");
+					console.log(data);
 					break;
 				}
 			}
