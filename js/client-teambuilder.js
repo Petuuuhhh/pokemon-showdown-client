@@ -3297,14 +3297,23 @@
 			this.room = data.room;
 			this.curSet = data.curSet;
 			this.chartIndex = data.index;
-			var species = room.dex.getSpecies(this.curSet.species,undefined, "from AltFormPopup");
+			const mod = this.room.curTeam && this.room.curTeam.mod ? this.room.curTeam.mod : "";
+			var species = this.room.dex.getSpecies(this.curSet.species,undefined, "from AltFormPopup");
 			var baseid = toID(species.baseSpecies);
 			var forms = [baseid].concat(species.cosmeticFormes.map(toID));
-			var spriteDir = Dex.resourcePrefix + 'sprites/';
+			let modSprite = Dex.getSpriteMod(mod, species.id, 'front', species.exists !== false);
+			let resourcePrefix = Dex.resourcePrefix;
+			if (modSprite) {
+				resourcePrefix = Dex.modResourcePrefix + mod + '/';
+			}
+			var spriteDir = resourcePrefix + 'sprites/';
 			var spriteSize = 96;
 			var spriteDim = 'width: 96px; height: 96px;';
 
 			var gen = {1:'gen1', 2:'gen2', 3:'gen3', 4:'gen4', 5:'gen5', 6:'dex', 7:'dex', 8:'dex'}[Math.max(this.room.curTeam.gen, species.gen)];
+			if (modSprite) {
+				gen = "front"
+			}
 			if (Dex.prefs('nopastgens')) gen = 'dex';
 			if (Dex.prefs('bwgfx') && gen === 'dex') gen = 'gen5';
 			spriteDir += gen;

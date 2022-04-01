@@ -1168,7 +1168,7 @@ Storage.importTeam = function (buffer, teams) {
 				// var thisDex = Dex;
 				var thisDex = Dex.getSpecies(line.substr(parenIndex + 2)).exists ? Dex : null;
 				if (!thisDex) {
-					for (var modid in (ClientMods)) {
+					for (var modid in (ModConfig)) {
 						if (Dex.mod(modid).getSpecies(line.substr(parenIndex + 2)).exists) {
 							thisDex = Dex.mod(modid);
 						}
@@ -1181,7 +1181,7 @@ Storage.importTeam = function (buffer, teams) {
 			} else {
 				var thisDex = Dex.getSpecies(line).exists ? Dex : null;
 				if (!thisDex) {
-					for (var modid in (ClientMods)) {
+					for (var modid in (ModConfig)) {
 						if (Dex.mod(modid).getSpecies(line).exists) {
 							thisDex = Dex.mod(modid);
 						}
