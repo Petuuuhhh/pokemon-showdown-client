@@ -963,10 +963,10 @@ return ability;
 getSpecies=function getSpecies(name){var hasData=arguments.length>1&&arguments[1]!==undefined?arguments[1]:true;var debug=arguments.length>2&&arguments[2]!==undefined?arguments[2]:"";
 var id=toID(name);
 var table=window.BattleTeambuilderTable[this.modid];
-
-
-
-
+if(window.BattleAliases&&id in BattleAliases&&!table.overrideDexInfo[id]){
+name=BattleAliases[id];
+id=toID(name);
+}
 if(this.cache.Species.hasOwnProperty(id))return this.cache.Species[id];
 var data={};
 if(hasData){

@@ -963,10 +963,10 @@ class ModdedDex {
 	getSpecies(name: string, hasData = true, debug = ""): Species {
 		let id = toID(name);
 		const table = window.BattleTeambuilderTable[this.modid];
-		// if (window.BattleAliases && id in BattleAliases && !table.overrideDexInfo[id]) {
-			// name = BattleAliases[id];
-			// id = toID(name);
-		// }
+		if (window.BattleAliases && id in BattleAliases && !table.overrideDexInfo[id]) {
+			name = BattleAliases[id];
+			id = toID(name);
+		}
 		if (this.cache.Species.hasOwnProperty(id)) return this.cache.Species[id];
 		let data = {};
 		if (hasData) {
