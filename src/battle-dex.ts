@@ -973,6 +973,11 @@ class ModdedDex {
 	}
 	getSpecies(name: string, hasData = true, debug = ""): Species {
 		let id = toID(name);
+		let formid = id;
+		if (!window.BattlePokedexAltForms) window.BattlePokedexAltForms = {};
+		if (formid in window.BattlePokedexAltForms) {
+			return window.BattlePokedexAltForms[formid];
+		}
 		const table = window.BattleTeambuilderTable[this.modid];
 		if (window.BattleAliases && id in BattleAliases && !table.overrideDexInfo[id]) {
 			name = BattleAliases[id];

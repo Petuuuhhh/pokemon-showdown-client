@@ -973,6 +973,11 @@ return ability;
 };_proto3.
 getSpecies=function getSpecies(name){var hasData=arguments.length>1&&arguments[1]!==undefined?arguments[1]:true;var debug=arguments.length>2&&arguments[2]!==undefined?arguments[2]:"";
 var id=toID(name);
+var formid=id;
+if(!window.BattlePokedexAltForms)window.BattlePokedexAltForms={};
+if(formid in window.BattlePokedexAltForms){
+return window.BattlePokedexAltForms[formid];
+}
 var table=window.BattleTeambuilderTable[this.modid];
 if(window.BattleAliases&&id in BattleAliases&&!table.overrideDexInfo[id]){
 name=BattleAliases[id];
