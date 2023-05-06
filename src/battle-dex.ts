@@ -179,7 +179,7 @@ const Dex = new class implements ModdedDex {
 
 	pokeballs: string[] | null = null;
 
-	readonly modResourcePrefix = 'https://raw.githubusercontent.com/scoopapa/dh/master/data/mods/';
+	readonly modResourcePrefix = 'https://raw.githubusercontent.com/Sunfished/PipsBasement/master/data/mods/';
 	resourcePrefix = (() => {
 		let prefix = '';
 		if (window.document?.location?.protocol !== 'http:') prefix = 'https:';
@@ -664,6 +664,15 @@ const Dex = new class implements ModdedDex {
 
 			spriteData.url += dir + '/' + name + '.png';
 		}
+		
+		//Prioritize animated gifs if exists
+		if (this.getSpriteMod(options.mod, id, 'ani-' + (isFront ? 'front' : 'back') + (spriteData.shiny ? '-shiny' : ''), species.exists !== false))
+		{
+			spriteData.url = resourcePrefix + spriteDir + 'ani-' + (isFront ? 'front' : 'back') + (spriteData.shiny ? '-shiny' : '') + "/" + name + ".gif";
+			spriteData.w = 200;
+			spriteData.h = 200;
+		}
+		
 
 		if (!options.noScale) {
 			if (graphicsGen > 4) {

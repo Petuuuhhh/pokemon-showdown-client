@@ -179,7 +179,7 @@ statNamesExceptHP=['atk','def','spa','spd','spe'];this.
 
 pokeballs=null;this.
 
-modResourcePrefix='https://raw.githubusercontent.com/scoopapa/dh/master/data/mods/';this.
+modResourcePrefix='https://raw.githubusercontent.com/Sunfished/PipsBasement/master/data/mods/';this.
 resourcePrefix=function(){var _window$document,_window$document$loca;
 var prefix='';
 if(((_window$document=window.document)==null?void 0:(_window$document$loca=_window$document.location)==null?void 0:_window$document$loca.protocol)!=='http:')prefix='https:';
@@ -664,6 +664,15 @@ name+='-f';
 
 spriteData.url+=dir+'/'+name+'.png';
 }
+
+
+if(this.getSpriteMod(options.mod,id,'ani-'+(isFront?'front':'back')+(spriteData.shiny?'-shiny':''),species.exists!==false))
+{
+spriteData.url=resourcePrefix+spriteDir+'ani-'+(isFront?'front':'back')+(spriteData.shiny?'-shiny':'')+"/"+name+".gif";
+spriteData.w=200;
+spriteData.h=200;
+}
+
 
 if(!options.noScale){
 if(graphicsGen>4){
