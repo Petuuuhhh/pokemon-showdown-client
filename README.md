@@ -123,3 +123,4 @@ If you're doing _anything_ else other than forking, _especially_ if you want to 
   [6]: http://www.gnu.org/licenses/agpl-3.0.html
 
 **WARNING:** This is **NOT** the same license as Pokémon Showdown's server.
+# PipsKitchen
