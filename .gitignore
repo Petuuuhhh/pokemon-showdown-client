@@ -11,6 +11,7 @@ Thumbs.db
 npm-debug.log
 package-lock.json
 /vendor/
+/data/DH/
 
 /js/server/
 /js/*.js.map
