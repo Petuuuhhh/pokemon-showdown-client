@@ -19,7 +19,7 @@ Config.whitelist = [
 // address bar is `Config.routes.client`.
 Config.defaultserver = {
 	id: 'dragonheaven',
-	host: 'localhost',
+	host: '76.50.33.22',
 	port: 8000,
 	httpport: 8000,
 	altport: 80,
